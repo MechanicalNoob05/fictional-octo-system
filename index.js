@@ -11,15 +11,15 @@ mongoose.set('strictQuery',false)
 const connectDB = async()=>{
 	try {
 		const conn = await mongoose.connect(process.env.DATABASE_URL)
-		console.log(`Mongodb Connected: ${conn.connection.host}`)
+		console.log(`Mongodb Connected`)
 	} catch (error) {
 		console.log(error)
 		process.exit(1)
 	}
 }
 
-const commentRouter = require('./routes/comment')
 app.use(express.json())
+const commentRouter = require('./routes/comment')
 app.use('/comment',commentRouter)
 
 app.get('/',(req,res)=>{
@@ -28,7 +28,7 @@ app.get('/',(req,res)=>{
 
 connectDB().then(()=>{
 	app.listen(PORT,()=>{
-		console.log('Server on',PORT);
+		console.log(`Server on ${PORT}`);
 
 	})
 })
