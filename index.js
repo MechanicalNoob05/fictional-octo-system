@@ -1,22 +1,38 @@
 require('dotenv').config()
 const express = require('express')
-
-const app = express()
 const mongoose = require('mongoose')
 
-mongoose.connect(process.env.DATABASE_URL)
-const db = mongoose.connection
-db.on('error',(error)=>{ console.log(error) })
-db.once('open',()=>{ console.log('connected') })
+const app = express()
 
-app.use(express.json())
+const PORT = process.env.PORT || 3000
+
+mongoose.set('strictQuery',false)
+
+const connectDB = async()=>{
+	try {
+		const conn = await mongoose.connect(process.env.DATABASE_URL)
+		console.log(`Mongodb Connected: ${conn.connection.host}`)
+	} catch (error) {
+		console.log(error)
+		process.exit(1)
+	}
+}
 
 const commentRouter = require('./routes/comment')
+app.use(express.json())
 app.use('/comment',commentRouter)
 
-const port = 4000
+connectDB().then(()=>{
+	app.listen(PORT,()=>{
+		console.log('Server on',PORT);
 
-app.listen(port,()=>{
-	console.log('Server on',port);
-	
+	})
 })
+
+// const db = mongoose.connection
+// db.on('error',(error)=>{ console.log(error) })
+// db.once('open',()=>{ console.log('connected') })
+//
+//
+//
+//
