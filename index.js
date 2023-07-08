@@ -22,6 +22,10 @@ const commentRouter = require('./routes/comment')
 app.use(express.json())
 app.use('/comment',commentRouter)
 
+app.get('/',(req,res)=>{
+	res.send({"home":["get","post"]})
+})
+
 connectDB().then(()=>{
 	app.listen(PORT,()=>{
 		console.log('Server on',PORT);
