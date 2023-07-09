@@ -19,11 +19,14 @@ const connectDB = async()=>{
 }
 
 app.use(express.json())
-const commentRouter = require('./routes/comment')
-app.use('/comment',commentRouter)
+const commentrouter = require('./routes/comment')
+app.use('/comment',commentrouter)
+
+const feedbackrouter = require('./routes/feedbaack')
+app.use('/feedback',feedbackrouter)
 
 app.get('/',(req,res)=>{
-	res.send({"home":["get","post"]})
+	res.send({"Hello": 69420 })
 })
 
 connectDB().then(()=>{
