@@ -25,6 +25,10 @@ app.use('/comment',commentrouter)
 const feedbackrouter = require('./routes/feedbaack')
 app.use('/feedback',feedbackrouter)
 
+const userrouter = require('./routes/user')
+app.use('/user',userrouter)
+
+
 app.get('/',(req,res)=>{
 	res.send({"Hello": 69420 })
 })
